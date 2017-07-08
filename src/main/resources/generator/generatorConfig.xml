@@ -4,7 +4,7 @@
         "mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry location="E:\workspace\code\gupaoedu-mybatis\src\main\resources\generator\mysql-connector-java-5.1.8.jar"/>
+    <classPathEntry location="E:\workspace\code\git\gupaoedu-mybatis\src\main\resources\generator\mysql-connector-java-5.1.8.jar"/>
     <context id="MysqlTables" targetRuntime="MyBatis3">
         <!--去除注释  -->
         <commentGenerator>
@@ -21,21 +21,25 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.gupaoedu.mybatis.beans" targetProject="E:\workspace\code\gupaoedu-mybatis\src\main\java">
+        <javaModelGenerator targetPackage="com.gupaoedu.mybatis.beans" targetProject="E:\workspace\code\git\gupaoedu-mybatis\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="xml" targetProject="E:\workspace\code\gupaoedu-mybatis\src\main\resources">
+        <sqlMapGenerator targetPackage="xml" targetProject="E:\workspace\code\git\gupaoedu-mybatis\src\main\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.gupaoedu.mybatis.mapper" targetProject="E:\workspace\code\gupaoedu-mybatis\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.gupaoedu.mybatis.mapper" targetProject="E:\workspace\code\git\gupaoedu-mybatis\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
 
-        <table schema="gp" tableName="test" domainObjectName="Test">
+        <!--<table schema="gp" tableName="test" domainObjectName="Test">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+
+        <table schema="gp" tableName="posts" domainObjectName="Posts">
             <property name="useActualColumnNames" value="false"/>
         </table>
 

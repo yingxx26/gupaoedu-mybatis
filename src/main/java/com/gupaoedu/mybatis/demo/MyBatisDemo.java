@@ -1,6 +1,8 @@
 package com.gupaoedu.mybatis.demo;
 
+import com.gupaoedu.mybatis.beans.Posts;
 import com.gupaoedu.mybatis.beans.Test;
+import com.gupaoedu.mybatis.mapper.PostsMapper;
 import com.gupaoedu.mybatis.mapper.TestMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,6 +11,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.Random;
 
 /**
  * Created by James on 2017/3/26.
@@ -16,17 +20,63 @@ import java.io.InputStream;
  * 老师咨询 QQ 2904270631
  */
 public class MyBatisDemo {
+    private static SqlSessionFactory sqlSessionFactory;
 
     public static SqlSession getSqlSession() throws FileNotFoundException {
-        InputStream configFile = new FileInputStream("E:\\workspace\\code\\gupaoedu-mybatis\\src\\main\\java\\com\\gupaoedu\\mybatis\\demo\\mybatis-config.xml");
+        InputStream configFile = new FileInputStream("E:\\workspace\\code\\git\\gupaoedu-mybatis\\src\\main\\java\\com\\gupaoedu\\mybatis\\demo\\mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configFile);
         return sqlSessionFactory.openSession();
     }
 
-    public static Test get(SqlSession sqlSession, int id) {
-        TestMapper testMapper = sqlSession.getMapper(TestMapper.class);
-        return testMapper.selectByPrimaryKey(id);
+    public static SqlSessionFactory getSqlSessionFactory() throws FileNotFoundException {
+        InputStream configFile = new FileInputStream("E:\\workspace\\code\\git\\gupaoedu-mybatis\\src\\main\\java\\com\\gupaoedu\\mybatis\\demo\\mybatis-config.xml");
+        if (null != sqlSessionFactory) {
+            return sqlSessionFactory;
+        }
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(configFile);
+        return sqlSessionFactory;
     }
+
+    public static Test get(SqlSession sqlSession, int id) throws SQLException {
+        TestMapper testMapper = sqlSession.getMapper(TestMapper.class);
+        long start = System.currentTimeMillis();
+        Test test = testMapper.selectByPrimaryKey(id);
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
+        start = System.currentTimeMillis();
+        test = testMapper.selectByPrimaryKey(id);
+        System.out.println("cost:" + (System.currentTimeMillis() - start) + "\n" + test);
+//        test.setName(String.valueOf(new Random().nextInt(5)));
+//        testMapper.updateByPrimaryKey(test);
+        start = System.currentTimeMillis();
+        test = testMapper.selectByPrimaryKey(id);
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
+        return test;
+    }
+
+    public static Test getOne(SqlSession sqlSession, int id) throws SQLException {
+        TestMapper testMapper = sqlSession.getMapper(TestMapper.class);
+        long start = System.currentTimeMillis();
+        Test test = testMapper.selectByPrimaryKey(id);
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
+        return test;
+    }
+
+    public static Posts getPosts(SqlSession sqlSession, int id) {
+        PostsMapper postsMapper = sqlSession.getMapper(PostsMapper.class);
+        long start = System.currentTimeMillis();
+        Posts posts = postsMapper.selectByPrimaryKey(id);
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
+        start = System.currentTimeMillis();
+        posts = postsMapper.selectByPrimaryKey(id);
+        System.out.println("cost:" + (System.currentTimeMillis() - start) + "\n" + posts);
+//        test.setName(String.valueOf(new Random().nextInt(5)));
+//        testMapper.updateByPrimaryKey(test);
+        start = System.currentTimeMillis();
+        posts = postsMapper.selectByPrimaryKey(id);
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
+        return posts;
+    }
+
 
     public static int insert(SqlSession sqlSession, Test test) {
         TestMapper testMapper = sqlSession.getMapper(TestMapper.class);
@@ -36,11 +86,30 @@ public class MyBatisDemo {
     public static void main(String[] args) throws FileNotFoundException {
         SqlSession sqlSession = getSqlSession();
         try {
-            System.out.println(get(sqlSession, 1));
+            diffSession();
+//            System.out.println(getOne(sqlSession, 1));
+//            System.out.println(getPosts(sqlSession, 1));
 //            System.out.println(insert(sqlSession, new Test(null, 66, "test insert")));
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             sqlSession.commit();
             sqlSession.close();
         }
+    }
+
+    public static void diffSession() throws Exception {
+        SqlSession sqlSession1 = getSqlSessionFactory().openSession();
+        SqlSession sqlSession2 = getSqlSessionFactory().openSession();
+        SqlSession sqlSession3 = getSqlSessionFactory().openSession();
+        getOne(sqlSession1, 1);
+        sqlSession1.commit();
+        sqlSession1.close();
+        getOne(sqlSession2, 1);
+        sqlSession2.commit();
+        sqlSession2.close();
+        getOne(sqlSession3, 1);
+        sqlSession3.commit();
+        sqlSession3.close();
     }
 }
