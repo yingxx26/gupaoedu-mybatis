@@ -1,4 +1,4 @@
-package com.gupaoedu.mybatis.my;
+package com.gupaoedu.mybatis.myV1;
 
 import java.util.HashMap;
 import java.util.Map;

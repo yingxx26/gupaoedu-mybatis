@@ -4,7 +4,7 @@ import com.gupaoedu.mybatis.beans.Test;
 import com.gupaoedu.mybatis.gp.config.GpConfiguration;
 import com.gupaoedu.mybatis.gp.executor.ExecutorFactory;
 import com.gupaoedu.mybatis.gp.session.GpSqlSession;
-import com.gupaoedu.mybatis.my.TestMapper;
+import com.gupaoedu.mybatis.myV1.TestMapper;
 
 import java.io.IOException;
 
