@@ -1,12 +1,8 @@
 package com.gupaoedu.mybatis.gp.executor;
 
-import com.gupaoedu.mybatis.beans.Test;
 import com.gupaoedu.mybatis.gp.config.GpConfiguration;
 import com.gupaoedu.mybatis.gp.config.MapperRegistory;
-import com.gupaoedu.mybatis.gp.executor.Executor;
 import com.gupaoedu.mybatis.gp.statement.StatementHandler;
-
-import java.sql.*;
 
 public class SimpleExecutor implements Executor {
     private GpConfiguration configuration;

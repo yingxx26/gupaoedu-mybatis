@@ -4,7 +4,6 @@ import com.gupaoedu.mybatis.beans.Test;
 import com.gupaoedu.mybatis.gp.config.GpConfiguration;
 import com.gupaoedu.mybatis.gp.executor.ExecutorFactory;
 import com.gupaoedu.mybatis.gp.session.GpSqlSession;
-import com.gupaoedu.mybatis.my.MySqlSession;
 import com.gupaoedu.mybatis.my.TestMapper;
 
 import java.io.IOException;
@@ -30,9 +29,9 @@ public class BootStrap {
         long start = System.currentTimeMillis();
         Test test = testMapper.selectByPrimaryKey(1);
         System.out.println("cost:"+ (System.currentTimeMillis() -start));
-        start = System.currentTimeMillis();
-        test = testMapper.selectByPrimaryKey(1);
-        System.out.println("cost:"+ (System.currentTimeMillis() -start));
-        System.out.println(test);
+//        start = System.currentTimeMillis();
+//        test = testMapper.selectByPrimaryKey(1);
+//        System.out.println("cost:"+ (System.currentTimeMillis() -start));
+//        System.out.println(test);
     }
 }

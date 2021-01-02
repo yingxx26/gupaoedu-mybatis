@@ -4,7 +4,7 @@ package com.gupaoedu.mybatis.my;
 import java.lang.reflect.Proxy;
 
 /**
- * Created by James on 2017/3/29.
+ * Created by James
  * From 咕泡学院出品
  * 老师咨询 QQ 2904270631
  */
@@ -18,6 +18,6 @@ public class MySqlSession {
 
     public <T> T getMapper(Class<T> clazz) {
         return (T) Proxy.newProxyInstance(clazz.getClassLoader(),
-                new Class[]{clazz}, new MapperProxy<T>(this, clazz));
+                new Class[]{clazz}, new MapperProxy(this, clazz));
     }
 }

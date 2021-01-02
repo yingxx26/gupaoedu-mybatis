@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.Random;
 
 /**
  * Created by James on 2017/3/26.
@@ -23,8 +22,11 @@ public class MyBatisDemo {
     private static SqlSessionFactory sqlSessionFactory;
 
     public static SqlSession getSqlSession() throws FileNotFoundException {
-        InputStream configFile = new FileInputStream("E:\\workspace\\code\\git\\gupaoedu-mybatis\\src\\main\\java\\com\\gupaoedu\\mybatis\\demo\\mybatis-config.xml");
+        //配置文件
+        InputStream configFile = new FileInputStream(
+                "E:\\workspace\\code\\git\\gupaoedu-mybatis\\src\\main\\java\\com\\gupaoedu\\mybatis\\demo\\mybatis-config.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configFile);
+        //加载配置文件得到SqlSessionFactory
         return sqlSessionFactory.openSession();
     }
 
@@ -86,8 +88,8 @@ public class MyBatisDemo {
     public static void main(String[] args) throws FileNotFoundException {
         SqlSession sqlSession = getSqlSession();
         try {
-            diffSession();
-//            System.out.println(getOne(sqlSession, 1));
+//            diffSession();
+            System.out.println(getOne(sqlSession, 1));
 //            System.out.println(getPosts(sqlSession, 1));
 //            System.out.println(insert(sqlSession, new Test(null, 66, "test insert")));
         } catch (Exception e) {

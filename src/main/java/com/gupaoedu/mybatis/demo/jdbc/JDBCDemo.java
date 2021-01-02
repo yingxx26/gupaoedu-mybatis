@@ -12,17 +12,18 @@ import static java.sql.Types.INTEGER;
  * 老师咨询 QQ 2904270631
  */
 public class JDBCDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 //        System.out.println(get(1));
         System.out.println(insert(new Test(null, 66, "jdbc insert")));
     }
 
-    public static int insert(Test test) {
+    public static int insert(Test test) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gp?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "123456");
+            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement("INSERT INTO test VALUES (?,?,?)");
             if (null != test.getId()) {
                 preparedStatement.setInt(1, test.getId());
@@ -31,6 +32,7 @@ public class JDBCDemo {
             }
             preparedStatement.setInt(2, test.getNums());
             preparedStatement.setString(3, test.getName());
+            connection.commit();
             return preparedStatement.executeUpdate();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

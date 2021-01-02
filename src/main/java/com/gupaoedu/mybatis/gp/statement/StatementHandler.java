@@ -1,11 +1,9 @@
 package com.gupaoedu.mybatis.gp.statement;
 
-import com.gupaoedu.mybatis.beans.Test;
 import com.gupaoedu.mybatis.gp.config.GpConfiguration;
 import com.gupaoedu.mybatis.gp.config.MapperRegistory;
 import com.gupaoedu.mybatis.gp.result.ResultSetHandler;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
 /**
@@ -44,7 +42,7 @@ public class StatementHandler {
 
     public Connection getConnection() throws SQLException {
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/gp?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String username = "root";
         String password = "123456";
         Connection conn = null;

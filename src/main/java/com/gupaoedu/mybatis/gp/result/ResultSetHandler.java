@@ -1,6 +1,5 @@
 package com.gupaoedu.mybatis.gp.result;
 
-import com.gupaoedu.mybatis.beans.Test;
 import com.gupaoedu.mybatis.gp.config.GpConfiguration;
 import com.gupaoedu.mybatis.gp.config.MapperRegistory;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
@@ -45,9 +44,13 @@ public class ResultSetHandler {
         //TODO type handles
         Class<?> type = field.getType();
         if(Integer.class == type){
+            int column = rs.findColumn(field.getName());
+            int anInt = rs.getInt(column);
             return rs.getInt(field.getName());
         }
         if(String.class == type){
+            int column = rs.findColumn(field.getName());
+            String string = rs.getString(column);
             return rs.getString(field.getName());
         }
         return rs.getString(field.getName());
